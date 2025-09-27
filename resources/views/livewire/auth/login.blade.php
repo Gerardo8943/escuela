@@ -126,7 +126,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
                 type="password"
                 required
                 autocomplete="current-password"
-                :placeholder="__('Password')"
+                :placeholder="__('Contraseña')"
                 viewable
             />
 
@@ -137,15 +137,13 @@ new #[Layout('components.layouts.auth')] class extends Component {
             @endif
         </div>
 
-        <!-- Remember Me -->
-        <flux:checkbox wire:model="remember" :label="__('Remember me')" />
-
         <div class="flex items-center justify-end">
             <flux:button variant="primary" type="submit" class="w-full" data-test="login-button">
-                {{ __('Log in') }}
+                {{ __('Ingresar') }}
             </flux:button>
         </div>
     </form>
+    
 
     @if (Route::has('register'))
         <div class="space-x-1 text-sm text-center rtl:space-x-reverse text-zinc-600 dark:text-zinc-400">

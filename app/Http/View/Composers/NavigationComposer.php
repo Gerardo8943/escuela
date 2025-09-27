@@ -17,7 +17,6 @@ class NavigationComposer
             ],
         ];
 
-   
 
         $view->with('groups', $groups);
     }

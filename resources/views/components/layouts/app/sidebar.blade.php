@@ -16,33 +16,32 @@
 
         <!--Navlist del siderbar, la logica se guarda en NavigationComposer.php-->
         <flux:navlist variant="outline">
-          @foreach ($groups as $group)
-
+        @foreach ($groups as $group)
     @if($group['type'] === 'navlist')
         <flux:navlist.group :heading="$group['heading']" class="grid">
             @foreach ($group['links'] as $link)
-                <flux:navlist.item 
-                    :icon="$link['icon'] ?? ''" 
-                    :href="route($link['route'])" 
-                    :current="request()->routeIs($link['route'])"
-                    wire:navigate>
-                    {{ $link['name'] }}
-                </flux:navlist.item>
+                @if(isset($link['type']) && $link['type'] === 'expandable')
+                    <flux:sidebar.group expandable :heading="$link['name']" class="grid">
+                        @foreach ($link['links'] as $subLink)
+                            <flux:sidebar.item :href="route($subLink['route'])">
+                                {{ $subLink['name'] }}
+                            </flux:sidebar.item>
+                        @endforeach
+                    </flux:sidebar.group>
+                @else
+                    <flux:navlist.item 
+                        :icon="$link['icon'] ?? ''" 
+                        :href="route($link['route'])" 
+                        :current="request()->routeIs($link['route'])"
+                        wire:navigate>
+                        {{ $link['name'] }}
+                    </flux:navlist.item>
+                @endif
             @endforeach
         </flux:navlist.group>
-
-    @elseif($group['type'] === 'expandable')
-        <flux:sidebar.group expandable :heading="$group['heading']" class="grid">
-            @foreach ($group['links'] as $link)
-                <flux:sidebar.item :href="route($link['route'])">
-                    {{ $link['name'] }}
-                </flux:sidebar.item>
-            @endforeach
-        </flux:sidebar.group>
-
-        <flux:spacer /> {{-- opcional, si quieres el espacio como en tu ejemplo --}}
     @endif
 @endforeach
+
 
 
         </flux:navlist>

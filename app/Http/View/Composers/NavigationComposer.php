@@ -12,7 +12,7 @@ class NavigationComposer
             // Navlist normal que no se expande
             [
                 'type' => 'navlist',
-                'heading' => 'Siderbar',
+                'heading' => 'Principal',
                 'links' => [
                     [
                         'name' => 'Dashboard',
@@ -22,21 +22,29 @@ class NavigationComposer
 
                 ],
             ],
-            //Navlist 
-            [
+
+             [
                 'type' => 'navlist',
-                'heading' => 'Inscripcion',
+                'heading' => 'Unidades curriculares',
                 'links' => [
                     [
-                        'name' => 'Nuevo semestre',
+                        'name' => 'Horario de clases',
+                        'icon' => 'forward',
+                        'route' => 'dashboard',
+                    ],
+
+                     [
+                        'name' => 'Materias inscritas',
+                        'icon' => 'inbox-stack',
                         'route' => 'profile.edit',
                     ],
-                ]
-            ]
+
+                ],
+            ],
 
 
-
-        ];
+    
+ ];
 
         $view->with('groups', $groups);
     }

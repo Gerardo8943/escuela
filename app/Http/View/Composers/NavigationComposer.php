@@ -19,7 +19,7 @@ class NavigationComposer
                         'icon' => 'home',
                         'route' => 'dashboard',
                     ],
-                    
+
                 ],
             ],
             //Navlist 
@@ -33,6 +33,7 @@ class NavigationComposer
                     ],
                 ]
             ]
+
 
 
         ];

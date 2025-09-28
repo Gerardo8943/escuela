@@ -1,15 +1,3 @@
-@php
-    $groups = [
-        'Platform' => [
-            [
-                'name' => 'Dashboard',
-                'icon' => 'home',
-                'url' => route('dashboard'),
-                'current' => request()->routeIs('dashboard'),
-            ],
-        ],
-    ];
-@endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
 
@@ -26,28 +14,41 @@
         </a>
 
 
-        <!--Inicio del siderbar-->
+        <!--Navlist del siderbar, la logica se guarda en NavigationComposer.php-->
         <flux:navlist variant="outline">
+          @foreach ($groups as $group)
 
-            @foreach ($groups as $group => $links)
-                <flux:navlist.group :heading="$group" class="grid">
-
-                    @foreach ($links as $link)
-                        <flux:navlist.item :icon="$link['icon']" :href="$link['url']" :current="$link['current']"
-                            wire:navigate>{{ $link['name'] }}</flux:navlist.item>
-                    @endforeach
-                </flux:navlist.group>
+    @if($group['type'] === 'navlist')
+        <flux:navlist.group :heading="$group['heading']" class="grid">
+            @foreach ($group['links'] as $link)
+                <flux:navlist.item 
+                    :icon="$link['icon'] ?? ''" 
+                    :href="route($link['route'])" 
+                    :current="request()->routeIs($link['route'])"
+                    wire:navigate>
+                    {{ $link['name'] }}
+                </flux:navlist.item>
             @endforeach
+        </flux:navlist.group>
+
+    @elseif($group['type'] === 'expandable')
+        <flux:sidebar.group expandable :heading="$group['heading']" class="grid">
+            @foreach ($group['links'] as $link)
+                <flux:sidebar.item :href="route($link['route'])">
+                    {{ $link['name'] }}
+                </flux:sidebar.item>
+            @endforeach
+        </flux:sidebar.group>
+
+        <flux:spacer /> {{-- opcional, si quieres el espacio como en tu ejemplo --}}
+    @endif
+@endforeach
+
 
         </flux:navlist>
 
-        <!--Check del siderbar desplegable-->
 
-        <flux:sidebar.group expandable heading="Unidades curriculares" class="grid">
-            <flux:sidebar.item href="#">Matematica</flux:sidebar.item>
-            <flux:sidebar.item href="#">Informatica</flux:sidebar.item>
-            <flux:sidebar.item href="#">Ingenieria</flux:sidebar.item>
-        </flux:sidebar.group>
+
 
         <flux:spacer />
 

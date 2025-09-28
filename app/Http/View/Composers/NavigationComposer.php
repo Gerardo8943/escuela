@@ -29,7 +29,7 @@ class NavigationComposer
                 'links' => [
                     [
                         'name' => 'Nuevo semestre',
-                        'route' => 'dashboard',
+                        'route' => 'profile.edit',
                     ],
                 ]
             ]

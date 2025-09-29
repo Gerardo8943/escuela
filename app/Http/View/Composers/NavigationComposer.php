@@ -38,6 +38,11 @@ class NavigationComposer
                         'icon' => 'inbox-stack',
                         'route' => 'profile.edit',
                     ],
+                       [
+                        'name' => 'Promedio final',
+                        'icon' => 'inbox-stack',
+                        'route' => 'profile.edit',
+                    ],
 
                 ],
             ],
